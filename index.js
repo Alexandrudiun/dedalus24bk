@@ -11,8 +11,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Conexiune la MongoDB
-
-// aici vreau sa fie cu env
 const uri = 'mongodb+srv://alex:alex@cluster0.x2rho.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0e';
 
 mongoose.connect(uri)
@@ -24,30 +22,31 @@ const ObjectSchema = new mongoose.Schema({
     startx: Number,
     starty: Number,
     sizex: Number,
-    sizey: Number,
+    sizey: Number, 
     endx: Number,
     endy: Number,
     wallarray: String,
-    density: Number,
+    Density: Number,
 });
 
 // Modelul Mongoose
 const ObjectModel = mongoose.model('Object', ObjectSchema);
 
 // Ruta pentru înregistrare
-app.post('/register', async (req, res) => {
-    const {startx, starty, sizex, sizey, endx, endy, wallarray, density} = req.body;
+app.post('/create', async (req, res) => {
+    const { startx, starty, sizex, sizey, endx, endy, wallarray, Density } = req.body;
     
     const newObject = new ObjectModel({
-        startx,
-        starty,
-        sizex,
-        sizey,
-        endx,
-        endy,
-        wallarray,
-        density,
-    });
+       startx,
+       starty,
+       sizex,
+       sizey,
+       endx,
+       endy,
+       wallarray,
+       Density,
+});
+    
     try {
         const savedObject = await newObject.save();
         
@@ -61,37 +60,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// // Ruta pentru actualizare
-// app.put('/update/:id', async (req, res) => {
-//     const { mesajalerta, latitudine, longitudine } = req.body;
-    
-//     try {
-//         const updatedObject = await ObjectModel.findByIdAndUpdate(
-//             req.params.id,
-//             { mesajalerta, latitudine, longitudine, datataUltimuluiUpdate: Date.now() },
-//             { new: true }
-//         );
-        
-//         if (!updatedObject) return res.status(404).send('Obiectul nu a fost găsit');
-//         res.json(updatedObject);
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// });
-
-// Ruta pentru ștergere
-app.delete('/delete/:id', async (req, res) => {
-    try {
-        const deletedObject = await ObjectModel.findByIdAndDelete(req.params.id);
-        
-        if (!deletedObject) return res.status(404).send('Obiectul nu a fost găsit');
-        res.json({ message: 'Obiectul a fost șters cu succes', id: req.params.id });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-// Ruta pentru a obține un obiect după ID
 app.get('/get/:id', async (req, res) => {
     try {
         const object = await ObjectModel.findById(req.params.id);
@@ -111,6 +79,7 @@ app.get('/getall', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
 
 // Pornirea serverului
 const PORT = process.env.PORT || 3000;
