@@ -28,6 +28,7 @@ const ObjectSchema = new mongoose.Schema({
     endy: Number,
     wallarray: String,
     Density: Number,
+    path: String,
 });
 
 // Modelul Mongoose
@@ -70,6 +71,23 @@ app.get('/get/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+app.put('/update/:id', async (req, res) => {
+    const { path } = req.body;
+    
+    try {
+        const updatedObject = await ObjectModel.findByIdAndUpdate(
+            req.params.id,
+            {path: path},
+        );
+        
+        if (!updatedObject) return res.status(404).send('Obiectul nu a fost găsit');
+        res.json(updatedObject);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 // Ruta pentru a obține toate obiectele
 app.get('/getall', async (req, res) => {
