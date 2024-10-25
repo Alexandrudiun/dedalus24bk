@@ -29,6 +29,7 @@ const ObjectSchema = new mongoose.Schema({
     wallarray: String,
     Density: Number,
     path: String,
+    createdAt: { type: Date, default: Date.now }
 });
 
 // Modelul Mongoose
