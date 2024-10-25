@@ -80,7 +80,6 @@ app.get('/getall', async (req, res) => {
     }
 });
 
-
 // Pornirea serverului
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
