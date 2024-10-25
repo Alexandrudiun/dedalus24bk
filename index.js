@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Conexiune la MongoDB
-const uri = 'mongodb+srv://alex:alex@cluster0.x2rho.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0e';
+const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri)
     .then(() => console.log('Conexiune reușită la MongoDB'))
