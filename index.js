@@ -36,7 +36,7 @@ const ObjectModel = mongoose.model('Object', ObjectSchema);
 
 // Ruta pentru înregistrare
 app.post('/create', async (req, res) => {
-    const { startx, starty, sizex, sizey, endx, endy, wallarray, density } = req.body;
+    const { startx, starty, sizex, sizey, endx, endy, wallarray, density, path } = req.body;
     
     const newObject = new ObjectModel({
        startx,
@@ -47,6 +47,7 @@ app.post('/create', async (req, res) => {
        endy,
        wallarray,
        density,
+       path
 });
     
     try {
