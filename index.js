@@ -101,17 +101,8 @@ app.get('/getall', async (req, res) => {
     }
 });
 
-app.get('/', async (req, res) => {
-    try {
-        const objects = await ObjectModel.find().sort({createdAt: -1}).limit(1);
-        if (objects.length === 0) {
-            res.status(404).send('<h1>404 Not Found</h1>');
-        } else {
-            res.json(objects);
-        }
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+app.get('/', (req, res) => {
+    res.send('<h1>Welcome! Pagina ta nu e aici</h1>');
 });
 
 // Pornirea serverului
