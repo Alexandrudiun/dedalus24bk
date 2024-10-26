@@ -102,7 +102,7 @@ app.get('/getall', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send('<h1>Welcome! Pagina ta nu e aici</h1>');
+    res.send('<h1>Welcome! Pagina ta nu e aici..ai accesat din greseala backendul nostru.</h1>');
 });
 
 // Pornirea serverului
